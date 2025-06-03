@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Loop</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background-color: white;
+    }
+
+    #slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #slideshow img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+    }
+
+    #overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: red;
+      font-size: 3em;
+      font-family: sans-serif;
+      text-align: center;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px black;
+      z-index: 2;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="slideshow">
+    <div id="overlay-text">How minds change over time</div>
+    <img id="image" src="sketch_1.png" alt="Slideshow image">
+  </div>
+
+  <script>
+    const images = ["sketch_1.png", "sketch_2.png", "sketch_3.png"];
+    let index = 0;
+    const imageElement = document.getElementById("image");
+
+    function showNextImage() {
+      imageElement.style.opacity = 0;
+      setTimeout(() => {
+        imageElement.src = images[index];
+        imageElement.style.opacity = 1;
+        index = (index + 1) % images.length;
+      }, 500); // fade out before switch
+    }
+
+    showNextImage(); // show first image
+    setInterval(showNextImage, 2000); // switch every 2 seconds
+  </script>
+</body>
+</html>
